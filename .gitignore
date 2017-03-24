@@ -1,0 +1,11 @@
+.DS_Store
+Gemfile.lock
+spec/test_app
+spec/dummy
+.sass-cache
+.bundle
+*.swp
+.rvmrc
+*.gem
+.idea
+VersionFile

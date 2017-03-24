@@ -1,0 +1,81 @@
+<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+<script>
+  Mercadopago.setPublishableKey("<%= Rails.application.try(:secrets).try(:[], :mercado_pago).try(:[], "public_key") %>");
+  var client = Mercadopago;
+  var amount = "<%= @order.total.to_f %>";
+  var gateway_name = "mercado_pago";
+  var mpPaymentId = <%= Spree::PaymentMethod.find_by(type: "Spree::MercadoPago::Gateways::CreditCard").id %>;
+</script>
+<%= javascript_include_tag "spree/payments/mercado_pago_credit_card" %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <img src="http://imgmp.mlstatic.com/org-img/banners/ar/medios/575X40.jpg" title="MercadoPago - Medios de pago" alt="MercadoPago - Medios de pago" width="575" height="40"/>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Tarjeta de crédito - Pago en cuotas</h4>
+  </div>
+  <div class="col-md-6 form-group">
+    <label for="">Nombre de la tarjeta</label>
+    <input type="text" class="form-control" id="mp_cc_name" placeholder="Nombre en la tarjeta">
+  </div>
+  <div class="col-md-2 form-group">
+    <label for="">Tipo de Doc</label>
+    <select id="mp_doc_type" class="form-control">
+      <option value="DNI" selected>DNI</option>
+      <option value="CI">CI</option>
+      <option value="LC">LC</option>
+      <option value="LE">LE</option>
+      <option value="Otro">Otro</option>
+    </select>
+  </div>
+  <div class="col-md-4 form-group">
+    <label for="">Número de doc</label>
+    <input type="text" class="form-control" id="mp_doc_number" placeholder="Número de documento">
+  </div>
+  <div class="col-md-6 form-group">
+    <label for="">Número de Tarjeta de crédito</label>
+    <input type="text" class="form-control" id="mp_cc_number" placeholder="Número de Tarjeta de crédito">
+  </div>
+  <div class="col-md-2 form-group">
+    <label for="">Cód. de Seg</label>
+    <input type="text" class="form-control" id="mp_cc_cvv" placeholder="Cód. de Seg">
+  </div>
+  <div class="col-md-2 form-group">
+    <label for="">Mes Venc.</label>
+    <select id="mp_expiration_month" class="form-control">
+      <% (1..12).each do |number| %>
+          <option value="<%= sprintf '%02d', number %>"><%= sprintf '%02d', number %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="col-md-2 form-group">
+    <label for="">Año Venc.</label>
+    <select id="mp_expiration_year" class="form-control">
+      <% (17..50).each do |number| %>
+          <option value="<%= sprintf '%02d', number %>"><%= sprintf '%02d', number %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="col-md-12 form-group">
+    <label for="">Elegí las cuotas</label>
+    <select name="cc_installments" id="mp_cc_installments">
+      <option value="">Ingresá tu tarjeta de crédito para conocer las cuotas disponibles</option>
+    </select>
+  </div>
+</div>
+
+<div class="mp-creditcard-form">4444
+  <div class="mp-fields hidden">
+    <input id="cardNumber" data-checkout="cardNumber" type="hidden" />
+    <input id="securityCode" data-checkout="securityCode" type="hidden" />
+    <input id="cardExpirationMonth" value="01" data-checkout="cardExpirationMonth" type="hidden" />
+    <input id="cardExpirationYear" value="17" data-checkout="cardExpirationYear" type="hidden" />
+    <input id="cardholderName" data-checkout="cardholderName" type="hidden" />
+    <input id="docType" data-checkout="docType" value="DNI" type="hidden" />
+    <input id="docNumber" data-checkout="docNumber" type="hidden" />
+  </div>
+</div>

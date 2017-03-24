@@ -1,0 +1,4 @@
+en:
+  mercado_pago:
+    make_payment: "Pay with Mercado Pago"
+    authentication_error: "It was not possible to authenticate with Mercado Pago"

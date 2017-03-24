@@ -13,7 +13,6 @@ class CreateSpreeMercadoPagoCreditCards < ActiveRecord::Migration[5.0]
       t.string :email
       t.integer :user_id
       t.integer :payment_method_id
-      t.integer :payment_id
       t.string :data
 
       t.timestamps

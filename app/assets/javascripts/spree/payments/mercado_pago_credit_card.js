@@ -109,23 +109,6 @@ $(function() {
     ccInstallments.append($('<option>', {value: item.value, text: item.text}));
   };
 
-  var generateToken = function() {
-
-    var _callbackTokenizeCard = function(status, response) {
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][token]" value="' + response.id + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][installments]" value="' + ccInstallments.val() + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][collected_amount]" value="' + amount + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][p_method]" value="' + paymentData.payment_type_id + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][p_method_id]" value="' + paymentData.payment_method_id + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_type]" value="' + $('#mp_doc_type').val() + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_number]" value="' + $('#mp_doc_number').val() + '" />');
-      checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][last_four]" value="' + $('#mp_cc_number').val().slice(-4) + '" />');
-      checkoutForm.submit();
-    };
-
-    client.createToken( frm.find('.mp-fields'), _callbackTokenizeCard );
-  };
-
   var continueButton = checkoutForm.find('input[type="submit"]');
 
   var hideMercadoPago = function() {
@@ -153,3 +136,20 @@ $(function() {
     toggleMercadoPago(e.target.value);
   });
 });
+
+var generateToken = function() {
+
+  var _callbackTokenizeCard = function(status, response) {
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][token]" value="' + response.id + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][installments]" value="' + ccInstallments.val() + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][collected_amount]" value="' + amount + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][p_method]" value="' + paymentData.payment_type_id + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][p_method_id]" value="' + paymentData.payment_method_id + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_type]" value="' + $('#mp_doc_type').val() + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_number]" value="' + $('#mp_doc_number').val() + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][last_four]" value="' + $('#mp_cc_number').val().slice(-4) + '" />');
+    checkoutForm.submit();
+  };
+
+  client.createToken( frm.find('.mp-fields'), _callbackTokenizeCard );
+};

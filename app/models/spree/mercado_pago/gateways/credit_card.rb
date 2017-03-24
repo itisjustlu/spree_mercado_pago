@@ -36,7 +36,7 @@ class Spree::MercadoPago::Gateways::CreditCard < Spree::Gateway
       transaction_amount: express_checkout.collected_amount.to_f,
       token: express_checkout.token,
       installments: express_checkout.installments,
-      payment_method_id: express_checkout.p_method_id,
+      payment_method_id: express_checkout.card_name,
       statement_descriptor: "",
       payer: {
           email: gateway_options[:email]

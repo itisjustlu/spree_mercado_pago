@@ -46,10 +46,10 @@ class Spree::MercadoPago::Gateways::CreditCard < Spree::Gateway
     result = provider.post("/v1/payments", data)
 
     if result["status"] == "201" && result["response"]["id"].present? && result["response"]["status"] == "approved"
-      express_checkout.update({gateway_object_id: result["response"]["id"], data: result["response"]})
-      ::Spree::MercadoPago::Status::Success
+      express_checkout.update({gateway_object_id: result["response"]["id"], data: result["response"], email: gateway_options[:email]})
+      ::Spree::MercadoPago::Status::Success.new
     else
-      ::Spree::MercadoPago::Status::Error(I18n.t("spree.mercadopago.gateway.#{result["response"]["status_detail"]}") || "Error inesperado")
+      ::Spree::MercadoPago::Status::Error.new(I18n.t("spree.mercadopago.gateway.#{result["response"]["status_detail"]}") || "Error inesperado")
     end
   end
 

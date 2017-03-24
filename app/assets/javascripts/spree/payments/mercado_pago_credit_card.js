@@ -1,18 +1,11 @@
+var paymentData, frm, ccName,
+    docType, docNumber, ccNumber,
+    ccCvv, expirationMonth,
+    expirationYear, ccInstallments,
+    checkoutForm, currentBin;
+
 $(function() {
-  var frm = $('.mp-creditcard-form');
-
-  var ccName = $('#mp_cc_name');
-  var docType = $('#mp_doc_type');
-  var docNumber = $('#mp_doc_number');
-  var ccNumber = $('#mp_cc_number');
-  var ccCvv = $('#mp_cc_cvv');
-  var expirationMonth = $('#mp_expiration_month');
-  var expirationYear = $('#mp_expiration_year');
-  var ccInstallments = $('#mp_cc_installments');
-  var checkoutForm = $('#checkout_form_payment');
-
-  var currentBin = "";
-  var paymentData = {
+  paymentData = {
     payment_method_id: "",
     payment_type_id: "",
     issuer: {
@@ -20,6 +13,18 @@ $(function() {
       name: ""
     }
   };
+
+  frm = $('.mp-creditcard-form');
+  ccName = $('#mp_cc_name');
+  docType = $('#mp_doc_type');
+  docNumber = $('#mp_doc_number');
+  ccNumber = $('#mp_cc_number');
+  ccCvv = $('#mp_cc_cvv');
+  expirationMonth = $('#mp_expiration_month');
+  expirationYear = $('#mp_expiration_year');
+  ccInstallments = $('#mp_cc_installments');
+  checkoutForm = $('#checkout_form_payment');
+  currentBin = "";
 
   var hiddenFields = [
     {name: "cardNumber", target: ccNumber},
@@ -143,11 +148,11 @@ var generateToken = function() {
     checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][token]" value="' + response.id + '" />');
     checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][installments]" value="' + ccInstallments.val() + '" />');
     checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][collected_amount]" value="' + amount + '" />');
-    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][p_method]" value="' + paymentData.payment_type_id + '" />');
-    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][p_method_id]" value="' + paymentData.payment_method_id + '" />');
-    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_type]" value="' + $('#mp_doc_type').val() + '" />');
-    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_number]" value="' + $('#mp_doc_number').val() + '" />');
-    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][last_four]" value="' + $('#mp_cc_number').val().slice(-4) + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][transaction_type]" value="' + paymentData.payment_type_id + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][card_name]" value="' + paymentData.payment_method_id + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_type]" value="' + docType.val() + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][doc_number]" value="' + docNumber.val() + '" />');
+    checkoutForm.append('<input type="hidden" name="payment_source[' + mpPaymentId + '][last_four]" value="' + ccNumber.val().slice(-4) + '" />');
     checkoutForm.submit();
   };
 

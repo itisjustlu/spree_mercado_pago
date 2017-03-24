@@ -22,6 +22,6 @@ module SpreeMercadoPago
       app.config.assets.precompile += %w( spree/payments/mercado_pago_credit_card.js )
     end
 
-    Spree::PermittedAttributes.source_attributes.push :token, :installments, :collected_amount, :p_method, :p_method_id, :doc_type, :doc_number, :last_four
+    Spree::PermittedAttributes.source_attributes.push :token, :installments, :collected_amount, :transaction_type, :card_name, :doc_type, :doc_number, :last_four
   end
 end

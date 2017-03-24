@@ -58,10 +58,10 @@ $(function() {
     }
   };
 
-  var getInstallments = function() {
-    if(currentBin.length >= 6) {
-      client.getInstallments( { bin: currentBin, amount: amount }, this.displayInstallmentOptions )
-    }
+  var getCftParsed = function(cft){
+    cft = cft.replace(/_/g, " ");
+    cft = cft.replace("|", " | ");
+    return cft
   };
 
   var displayInstallmentOptions = function(status, response) {
@@ -77,7 +77,7 @@ $(function() {
         addOptionsToInstallmentsSelect({
           value: plan.installments,
           text: plan.recommended_message,
-          cft: self.getCftParsed(plan.labels[0]),
+          cft: getCftParsed(plan.labels[0]),
           installment_rate:
           plan.installment_rate,
           financed_total: plan.total_amount
@@ -91,6 +91,12 @@ $(function() {
     }
   };
 
+  var getInstallments = function() {
+    if(currentBin.length >= 6) {
+      client.getInstallments( { bin: currentBin, amount: amount }, displayInstallmentOptions )
+    }
+  };
+
   var cleanInstallmentsOptions = function(addDefault) {
     ccInstallments.html('');
 
@@ -101,12 +107,6 @@ $(function() {
 
   var addOptionsToInstallmentsSelect = function(item) {
     ccInstallments.append($('<option>', {value: item.value, text: item.text}));
-  };
-
-  var getCftParsed = function(cft){
-    cft = cft.replace(/_/g, " ");
-    cft = cft.replace("|", " | ");
-    return cft
   };
 
   var generateToken = function() {

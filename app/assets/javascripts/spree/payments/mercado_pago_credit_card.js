@@ -1,4 +1,4 @@
-var paymentData, frm, ccName,
+var paymentData, frm, displayableForm, ccName,
     docType, docNumber, ccNumber,
     ccCvv, expirationMonth,
     expirationYear, ccInstallments,
@@ -15,14 +15,16 @@ $(function() {
   };
 
   frm = $('.mp-creditcard-form');
-  ccName = $('#mp_cc_name');
-  docType = $('#mp_doc_type');
-  docNumber = $('#mp_doc_number');
-  ccNumber = $('#mp_cc_number');
-  ccCvv = $('#mp_cc_cvv');
-  expirationMonth = $('#mp_expiration_month');
-  expirationYear = $('#mp_expiration_year');
-  ccInstallments = $('#mp_cc_installments');
+  displayableForm = $('.mercadopago-credit-card');
+  ccName = displayableForm.find('#mp_cc_name');
+  docType = displayableForm.find('#mp_doc_type');
+  docNumber = displayableForm.find('#mp_doc_number');
+  ccNumber = displayableForm.find('#mp_cc_number');
+  ccCvv = displayableForm.find('#mp_cc_cvv');
+  expirationMonth = displayableForm.find('#mp_expiration_month');
+  expirationYear = displayableForm.find('#mp_expiration_year');
+  ccInstallments = displayableForm.find('#mp_cc_installments');
+
   checkoutForm = $('#checkout_form_payment');
   currentBin = "";
 

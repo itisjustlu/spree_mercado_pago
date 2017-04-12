@@ -18,8 +18,8 @@ module SpreeMercadoPago
     end
 
     initializer "spree_payment_network.register.payment_methods" do |app|
-      app.config.spree.payment_methods += [Spree::MercadoPago::Gateways::CreditCard]
-      app.config.assets.precompile += %w( spree/payments/mercado_pago_credit_card.js )
+      app.config.spree.payment_methods += [Spree::MercadoPago::Gateways::CreditCard, Spree::MercadoPago::Gateways::Ticket]
+      app.config.assets.precompile += %w( spree/payments/mercado_pago_credit_card.js spree/payments/mercado_pago_ticket.js )
     end
 
     Spree::PermittedAttributes.source_attributes.push :token, :installments, :collected_amount, :transaction_type, :card_name, :doc_type, :doc_number, :last_four

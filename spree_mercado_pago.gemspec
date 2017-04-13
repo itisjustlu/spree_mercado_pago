@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'spree_mercado_pago'
-  s.version     = '3.2.0.16'
+  s.version     = '3.2.0.17'
   s.summary     = 'Spree Plugin to integrate Mercado Pago'
   s.description = 'Integrates Mercado Pago with Spree'
   s.author      = "Lucas Javier Juarez"

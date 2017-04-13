@@ -32,7 +32,7 @@ class Spree::MercadoPago::Gateways::CreditCard < Spree::Gateway
   def purchase(amount, express_checkout, gateway_options={})
     data = {
       description: "",
-      transaction_amount: (amount / 100).to_f.to_s,
+      transaction_amount: (amount / 100).to_f,
       token: express_checkout.token,
       installments: express_checkout.installments,
       payment_method_id: express_checkout.card_name,
@@ -48,7 +48,7 @@ class Spree::MercadoPago::Gateways::CreditCard < Spree::Gateway
       express_checkout.update({gateway_object_id: result["response"]["id"], data: result["response"], email: gateway_options[:email]})
       ::Spree::MercadoPago::Status::Success.new
     else
-      ::Spree::MercadoPago::Status::Error.new(I18n.t("spree.mercadopago.gateway.#{result["response"]["status_detail"]}") || "Error inesperado")
+      ::Spree::MercadoPago::Status::Error.new(result["response"])
     end
   end
 

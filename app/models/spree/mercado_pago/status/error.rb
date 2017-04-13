@@ -1,6 +1,6 @@
 class Spree::MercadoPago::Status::Error
-  def initialize(error)
-    @error = error
+  def initialize(response)
+    @error = response["message"] || I18n.t("spree.mercadopago.gateway.#{response["status_detail"]}") || "Unexpected error"
   end
 
   def success?

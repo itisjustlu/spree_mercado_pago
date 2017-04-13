@@ -32,7 +32,7 @@ class Spree::MercadoPago::Gateways::Ticket < Spree::Gateway
   def authorize(amount, express_checkout, gateway_options={})
     data = {
       description: "",
-      transaction_amount: amount.to_f,
+      transaction_amount: (amount / 100).to_f.to_s,
       payment_method_id: express_checkout.payment_option,
       payer: {
         email: gateway_options[:email],

@@ -32,7 +32,7 @@ class Spree::MercadoPago::Gateways::CreditCard < Spree::Gateway
   def purchase(amount, express_checkout, gateway_options={})
     data = {
       description: "",
-      transaction_amount: amount.to_f,
+      transaction_amount: (amount / 100).to_f.to_s,
       token: express_checkout.token,
       installments: express_checkout.installments,
       payment_method_id: express_checkout.card_name,

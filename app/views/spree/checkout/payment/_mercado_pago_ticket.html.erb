@@ -1,0 +1,30 @@
+<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+<script>
+  Mercadopago.setPublishableKey("<%= Rails.application.try(:secrets).try(:[], :mercado_pago).try(:[], "public_key") %>");
+  var clientTicket = Mercadopago;
+  var amountTicket = "<%= @order.total.to_f %>";
+  var gateway_name_ticket = "mercado_pago_ticket";
+  var mpPaymentIdTicket = <%= Spree::PaymentMethod.find_by(type: "Spree::MercadoPago::Gateways::Ticket").id %>;
+</script>
+<%= javascript_include_tag "spree/payments/mercado_pago_ticket" %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <img src="http://imgmp.mlstatic.com/org-img/banners/ar/medios/575X40.jpg" title="MercadoPago - Medios de pago" alt="MercadoPago - Medios de pago" width="575" height="40"/>
+  </div>
+</div>
+
+<div class="row mercadopago-ticket">
+  <div class="form-group col-sm-4">
+    <label for="">Lugar de pago</label>
+    <select name="" id="payment_option" class="form-control"></select>
+  </div>
+  <div class="form-group col-sm-4">
+    <label for="">Tipo de documento</label>
+    <input type="text" value="" id="doc_type_ticket" class="form-control">
+  </div>
+  <div class="form-group col-sm-4">
+    <label for="">Número de documento</label>
+    <input type="text" value="" id="doc_number_ticket" class="form-control">
+  </div>
+</div>

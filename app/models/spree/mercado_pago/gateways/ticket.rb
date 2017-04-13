@@ -26,35 +26,31 @@ class Spree::MercadoPago::Gateways::Ticket < Spree::Gateway
   end
 
   def payment_source_class
-    ::Spree::MercadoPago::Payments::CreditCard
+    ::Spree::MercadoPago::Payments::Ticket
   end
 
   def purchase(amount, express_checkout, gateway_options={})
-    abort ""
     data = {
-        description: "",
-        transaction_amount: express_checkout.collected_amount.to_f,
-        token: express_checkout.token,
-        installments: express_checkout.installments,
-        payment_method_id: express_checkout.card_name,
-        statement_descriptor: "",
-        payer: {
-            email: gateway_options[:email]
+      description: "",
+      transaction_amount: express_checkout.collected_amount.to_f,
+      payment_method_id: express_checkout.payment_option,
+      payer: {
+        email: gateway_options[:email],
+        identification: {
+          type: express_checkout.doc_type,
+          number: express_checkout.doc_number
         }
+      }
     }
 
     result = provider.post("/v1/payments", data)
 
-    if result["status"] == "201" && result["response"]["id"].present? && result["response"]["status"] == "approved"
+    if result["status"] == "201" && result["response"]["id"].present?
       express_checkout.update({gateway_object_id: result["response"]["id"], data: result["response"], email: gateway_options[:email]})
       ::Spree::MercadoPago::Status::Success.new
     else
       ::Spree::MercadoPago::Status::Error.new(I18n.t("spree.mercadopago.gateway.#{result["response"]["status_detail"]}") || "Error inesperado")
     end
-  end
-
-  def parse_installments(installments)
-    sprintf '%02d', installments.to_s
   end
 
   def refund(payment, amount)

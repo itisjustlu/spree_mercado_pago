@@ -18,7 +18,7 @@ class Spree::MercadoPago::Gateways::Ticket < Spree::Gateway
   end
 
   def auto_capture?
-    true
+    false
   end
 
   def method_type
@@ -29,10 +29,10 @@ class Spree::MercadoPago::Gateways::Ticket < Spree::Gateway
     ::Spree::MercadoPago::Payments::Ticket
   end
 
-  def purchase(amount, express_checkout, gateway_options={})
+  def authorize(amount, express_checkout, gateway_options={})
     data = {
       description: "",
-      transaction_amount: express_checkout.collected_amount.to_f,
+      transaction_amount: amount.to_f,
       payment_method_id: express_checkout.payment_option,
       payer: {
         email: gateway_options[:email],

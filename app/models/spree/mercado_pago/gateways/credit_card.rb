@@ -30,10 +30,9 @@ class Spree::MercadoPago::Gateways::CreditCard < Spree::Gateway
   end
 
   def purchase(amount, express_checkout, gateway_options={})
-    abort 'here'
     data = {
       description: "",
-      transaction_amount: express_checkout.collected_amount.to_f,
+      transaction_amount: amount.to_f,
       token: express_checkout.token,
       installments: express_checkout.installments,
       payment_method_id: express_checkout.card_name,

@@ -1,6 +1,6 @@
 <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
 <script>
-  Mercadopago.setPublishableKey("<%= Rails.application.try(:secrets).try(:[], :mercado_pago).try(:[], "public_key") %>");
+  Mercadopago.setPublishableKey("<%= Rails.application.try(:secrets).try(:[], :mercado_pago).try(:[], :public_key) %>");
   var clientTicket = Mercadopago;
   var amountTicket = "<%= @order.total.to_f %>";
   var gateway_name_ticket = "mercado_pago_ticket";

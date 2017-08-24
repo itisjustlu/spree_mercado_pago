@@ -14,7 +14,7 @@ class Spree::MercadoPago::Gateways::Ticket < Spree::Gateway
   end
 
   def provider
-    ::MercadoPago.new(Rails.application.try(:secrets).try(:[], :mercado_pago).try(:[], "access_token"))
+    ::MercadoPago.new(Rails.application.try(:secrets).try(:[], :mercado_pago).try(:[], :access_token))
   end
 
   def auto_capture?

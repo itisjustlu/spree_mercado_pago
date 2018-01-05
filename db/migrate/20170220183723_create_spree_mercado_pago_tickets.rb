@@ -4,7 +4,7 @@ class CreateSpreeMercadoPagoTickets < ActiveRecord::Migration[5.0]
       t.string :payment_option
       t.string :doc_type
       t.string :doc_number
-      t.integer :bigint
+      t.bigint :gateway_object_id
       t.string :collected_amount
       t.string :email
       t.integer :user_id

@@ -6,7 +6,7 @@ class CreateSpreeMercadoPagoCreditCards < ActiveRecord::Migration[5.0]
       t.string :doc_type
       t.string :doc_number
       t.integer :installments
-      t.integer :gateway_object_id
+      t.bigint :gateway_object_id
       t.string :transaction_type
       t.string :collected_amount
       t.string :card_name

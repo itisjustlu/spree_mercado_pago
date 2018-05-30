@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = 'lucasjavierjuarez@hotmail.com'
   s.license     = 'MIT'
 
-  s.add_dependency 'spree_core', '~> 3.3.0'
+  s.add_dependency 'spree_core', '< 4'
   s.add_dependency 'rest-client', '~> 2.0'
   s.add_dependency 'mercadopago-sdk'
 

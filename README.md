@@ -10,5 +10,5 @@ You should run inside your project
 bundle exec rails g spree_mercado_pago:install
 ```
 ### Usage
-* Add a new payment method in the admin panel of type "Spree::MercadoPago::Gateways::CreditCard" and "Spree::MercadoPago::Gateways::Ticket"
+* Add a snew payment method in the admin panel of type "Spree::MercadoPago::Gateways::CreditCard" and "Spree::MercadoPago::Gateways::Ticket"
 * After adding the payment method you will be able to configure your Client ID and Client Secret (provided by Mercado Pago).
